@@ -92,6 +92,8 @@ jobs:
       #     docker build -t $REGISTRY/$REPOSITORY:$IMAGE .
       #     docker push $REGISTRY/$REPOSITORY:$IMAGE
       #   working-directory: ./node-app
+
+
       - name: Deploy docker image to ec2
         env:
           # REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -105,9 +107,11 @@ jobs:
           key: ${{ env.SSH_KEY_PRIVATE }}
           # envs: SSH_KEY_PRIVATE,REGISTRY,REPOSITORY,IMAGE,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_REGION 
           script: |-
-            sudo apt update
-            sudo apt install docker.io -y
-            sudo apt install awscli -y
+            sudo yum update -y
+            sudo yum install docker -y
+            sudo yum install awscli -y
+            sudo systemctl start docker
+            sudo systemctl enable docker
             sudo $(aws ecr get-login --no-include-email --region us-east-1)
             sudo docker stop myappcontainer || true
             sudo docker rm myappcontainer || true
