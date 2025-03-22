@@ -75,9 +75,13 @@ jobs:
       - name: Debug IMAGE
         run: echo "Using IMAGE:$IMAGE"
      
-      - name: Debug SSH Host
-        run: |
-          echo "SSH Host=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
+
+      - name: Debug SERVER_PUBLIC_IP
+        run: echo "SERVER_PUBLIC_IP=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
+
+      # - name: Debug SSH Host
+      #   run: |
+      #     echo "SSH Host=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
 
       - name: Login to ECR
         id: login-ecr
