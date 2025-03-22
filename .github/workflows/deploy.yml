@@ -57,7 +57,7 @@ jobs:
     
       - name: Set Server Public IP
         id: pub_ip
-        run: echo "SERVER_PUBLIC_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_ENV
+        run: echo "SERVER_PUBLIC_IP=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
         working-directory: ./terraform
     
       - name: Debug SERVER_PUBLIC_IP
@@ -77,8 +77,7 @@ jobs:
      
 
       - name: Debug SERVER_PUBLIC_IP
-        # run: echo "SERVER_PUBLIC_IP=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
-        run: echo "SERVER_PUBLIC_IP=${{ env.SERVER_PUBLIC_IP }}"
+        run: echo "SERVER_PUBLIC_IP=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
 
 
       # - name: Login to ECR
