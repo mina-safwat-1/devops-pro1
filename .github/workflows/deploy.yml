@@ -114,14 +114,11 @@ jobs:
             sudo systemctl enable docker
 
             echo root
-
-            sudo echo $REGISTRY
-            sudo echo $SSH_KEY_PRIVATE
+            sudo printenv | grep AWS
 
             echo user
-            sudo echo $REGISTRY
-            sudo echo $SSH_KEY_PRIVATE
-
+            printenv | grep AWS
+            
             aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $REGISTRY
             sudo docker stop myappcontainer || true
             sudo docker rm myappcontainer || true
